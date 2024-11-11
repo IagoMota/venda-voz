@@ -5,7 +5,7 @@ class Auth {
     tokenType = null;
     tokenExpire = null;
 
-    async getToken() {
+    async setToken() {
         const url = 'https://accounts.spotify.com/api/token';
         const payload = {
             method: 'POST',
@@ -20,6 +20,7 @@ class Auth {
         this.tokenType = response.token_type;
         this.tokenExpire = response.expires_in;
     }
+
 }
 
 export default Auth;

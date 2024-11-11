@@ -54,27 +54,7 @@ class GetData {
         inputEvent.target.removeAttribute('disabled')
     }
 
-    create({ tag = 'div', cla = [], txt = '', src = '', par } = {}) {
-        const el = document.createElement(tag);
-        if (Array.isArray(cla)) {
-            cla.forEach(className => el.classList.add(className));
-        } else if (typeof cla === 'string') {
-            el.classList.add(cla);
-        }
-
-        txt ? el.textContent = txt : null;
-        src ? el.src = src : null;
-
-        if (par) {
-            if (typeof par === 'string') {
-                document.querySelector(par)?.appendChild(el);
-            } else if (par instanceof HTMLElement) {
-                par.appendChild(el);
-            }
-        }
-
-        return el; // Return the element in case you need to reference it
-    }
+   
 
 }
 
