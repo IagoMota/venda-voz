@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+body {
+    color: purple;
+    background-color: black;
+}
+
+.album-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: solid cyan 2px;
+    height: 300px;
+    width: 200px;
+    gap: 10px;
+}
+
+.album-name {
+    color: aquamarine;
+    text-align: center;
+}
+.album-picture {
+    width: 200px;
+}
