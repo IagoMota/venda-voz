@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Entrar no App</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <button>Entrar na conta Spotify</button>
+    <script type="module">
+        async function route() {
+            const id = await fetch('/id').then(response => response.json())
+            const auth_query_parameters = new URLSearchParams({
+                response_type: "code",
+                client_id: id,
+                scope: 'streaming user-read-email user-read-private',
+                redirect_uri: 'http://localhost:5000/auth/callback',
+
+            })
+            location.assign('https://accounts.spotify.com/authorize/?' + auth_query_parameters.toString());
+        }
+        document.querySelector('button').addEventListener('click', route)
+    </script>
+</body>
+
+</html>
