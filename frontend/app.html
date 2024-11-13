@@ -122,6 +122,41 @@
             display: flex;
             flex-direction: column;
         }
+
+        #song-tts {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            gap: 2rem;
+        }
+
+        #song-tts button {
+            width: 50%;
+        }
+
+        #searchBarContainer {
+            display: none;
+            gap: 1rem;
+        }
+
+        #announcementContainer {
+            display: none;
+            width: 100%;
+        }
+
+        #announcement {
+            width: 100%;
+        }
+
+        #announcementInput {
+            width: 100%;
+        }
+        #scheduleList {
+            overflow-x: hidden;
+            overflow-y: scroll;
+            height: 400px;
+        }
     </style>
 </head>
 
@@ -134,15 +169,28 @@
             <div id="searchContainer">
                 <div id="searchControls">
                     <input type="time" name="" id="time">
-                    <input type="text" id="searchInput" placeholder="Procurar Música">
-                    <button id="searchButton">Procurar</button>
+                    <div id="searchBarContainer">
+                        <input type="text" id="searchInput" placeholder="Procurar Música">
+                        <button id="searchButton">Procurar</button>
+                    </div>
+                    <div id="announcementContainer">
+                        <textarea name="" id="announcementInput" placeholder="Digite seu anúncio aqui..."></textarea>
+
+                    </div>
+                    <div id="song-tts">
+                        <button id="song">Musica</button>
+                        <button id="announcement">Anúncio</button>
+                    </div>
+
                     <div id="list">
 
                     </div>
                 </div>
                 <button id="scheduleButton">Agendar</button>
             </div>
-
+            <div id="scheduleList">
+                Lista de agendamentos
+            </div>
         </div>
         <div id="player-container">
             <button id="back">&lt</button>
@@ -151,7 +199,8 @@
         </div>
     </main>
     <script>
-        document.querySelector('#time').addEventListener("change", (e) => console.log(e.target.value))
+
+
     </script>
     <script type="module" src="./main.js"></script>
 </body>

@@ -43,7 +43,7 @@ class SdkConnection {
             document.body.dispatchEvent(new Event('yeah'));
         }
     }
-    playSong(trackUri) {
+    playSong = (trackUri) => {
         fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.device_id}`, {
             method: 'PUT',
             headers: {

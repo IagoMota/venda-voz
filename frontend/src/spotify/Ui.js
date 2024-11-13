@@ -1,9 +1,15 @@
 class Ui {
-    constructor(ApiData, SdkConnection) {
+    constructor(ApiData, SdkConnection, Timer, TTS) {
         this.sdkConnection = SdkConnection;
         this.apiData = ApiData;
+        this.timer = Timer;
+        this.tts = TTS;
     }
     list = this.get("#list")
+    chosenURI = null;
+    chosenTTS = null;
+    thingToPlay = null;
+    counter = 1;
     create({ tag = 'div', cla = [], txt = '', src = '', par } = {}) {
         const el = document.createElement(tag);
         if (Array.isArray(cla)) {
@@ -37,7 +43,7 @@ class Ui {
     setToggleButton = () => {
         this.get("#toggle").addEventListener('click', async () => {
             this.player.togglePlay().then(() => { })
-            this.player.getCurrentState().then(state=>console.log(state));
+            this.player.getCurrentState().then(state => console.log(state));
         })
     }
     setNextButton = () => {
@@ -60,6 +66,28 @@ class Ui {
             this.inputHandler(input.value, input)
         })
     }
+    setScheduling = () => {
+        const scheduleButton = this.get('#scheduleButton');
+        scheduleButton.addEventListener('click', () => {
+            const then = this.timer.formatTime(this.get('#time').value);
+            if (this.thingToPlay === "song") {
+                this.timer.addToSchedule({ then, uri: this.chosenURI, func: this.sdkConnection.playSong })
+                return;
+            }
+            if (this.thingToPlay === "tts") {
+                const inputText = this.get("#announcementInput").value;
+                this.timer.addToSchedule({ then, tts: inputText, func: this.readText })
+                return;
+            }
+         
+        })
+    }
+    readText = (text) => {
+        console.log(text)
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'pt-BR';  // Set language to Brazilian Portuguese
+        window.speechSynthesis.speak(utterance);
+    }
     listTracks(tracks) {
         this.list.style.display = "flex";
         tracks.items.forEach((item) => {
@@ -69,8 +97,10 @@ class Ui {
             this.create({ tag: 'h4', cla: 'trackName', txt: name, par: container });
 
             container.addEventListener('click', () => {
-                console.log(uri)
-                this.sdkConnection.playSong(uri)
+                this.chosenURI = uri;
+                this.list.innerHTML = "";
+                this.list.style.display = 'none';
+                // this.sdkConnection.playSong(uri)
             })
         });
     }
@@ -83,6 +113,19 @@ class Ui {
         this.listTracks(tracks);
         input.removeAttribute('disabled')
     }
+    setTypeChoice() {
+        const container = this.get("#song-tts");
+        this.get("#song").addEventListener("click", () => {
+            container.style.display = "none";
+            this.get("#searchBarContainer").style.display = "flex";
+            this.thingToPlay = "song";
+        })
+        this.get("#announcement").addEventListener("click", () => {
+            container.style.display = "none";
+            this.get("#announcementContainer").style.display = "flex";
+            this.thingToPlay = "tts";
+        })
+    }
     init() {
         document.body.addEventListener("yeah", () => {
             this.player = this.sdkConnection.player
@@ -90,6 +133,8 @@ class Ui {
             this.setToggleButton();
             this.setNextButton();
             this.setSearch();
+            this.setTypeChoice()
+            this.setScheduling();
         })
     }
 }

@@ -45,7 +45,11 @@ const server = http.createServer((req, res) => {
             break;
         case '/src/spotify/SdkConnection.js':
             res.writeHead(200, { "Content-Type": "application/javascript" });
-            res.end(fs.readFileSync(path.resolve(__dirname, "../frontend/src/spotify") + '/SDkConnection.js'));
+            res.end(fs.readFileSync(path.resolve(__dirname, "../frontend/src/spotify") + '/SdkConnection.js'));
+            break;
+        case '/src/spotify/Timer.js':
+            res.writeHead(200, { "Content-Type": "application/javascript" });
+            res.end(fs.readFileSync(path.resolve(__dirname, "../frontend/src/spotify") + '/Timer.js'));
             break;
         case '/auth/callback':
             const { code } = query;
