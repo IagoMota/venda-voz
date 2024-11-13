@@ -1,12 +1,11 @@
-import Auth from "./src/spotify/ApiAuth.js";
-import GetData from "./src/spotify/GetData.js";
-import PlayerUi from "./src/spotify/PlayerUi.js";
-import SearchUi from "./src/spotify/SearchUi.js";
+import ApiData from "./src/spotify/ApiData.js";
+import Ui from "./src/spotify/Ui.js";
 import SdkConnection from "./src/spotify/SdkConnection.js";
 
-
+const apiData = new ApiData();
 const sdkConnection = new SdkConnection();
-const playerUi = new PlayerUi(sdkConnection);
+const ui = new Ui(apiData,sdkConnection);
 
-playerUi.init()
+apiData.init()
+ui.init()
 await sdkConnection.init();

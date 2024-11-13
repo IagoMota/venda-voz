@@ -1,7 +1,10 @@
 class SdkConnection {
     player = null;
+    device_id = null;
+    token = null;
     setErrorHandling() {
         this.player.addListener('ready', ({ device_id }) => {
+            this.device_id = device_id;
             console.log('Ready with Device ID', device_id);
         });
         // Not Ready
@@ -29,18 +32,33 @@ class SdkConnection {
     }
     readinessListener() {
         window.onSpotifyWebPlaybackSDKReady = async () => {
-            const token = await fetch('/SdkToken').then(res => res.json());
+            this.token = await fetch('/SdkToken').then(res => res.json());
             this.player = new Spotify.Player({
                 name: 'Computador',
-                getOAuthToken: cb => { cb(token); },
+                getOAuthToken: cb => { cb(this.token); },
                 volume: 1
             });
             this.setErrorHandling();
-            this.player.connect();
+            await this.player.connect();
             document.body.dispatchEvent(new Event('yeah'));
         }
     }
-
+    playSong(trackUri) {
+        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.device_id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.token}`
+            },
+            body: JSON.stringify({ uris: [trackUri] })
+        }).then(response => {
+            if (response.ok) {
+                console.log('Track is playing!');
+            } else {
+                console.error('Failed to play the track:', response);
+            }
+        });
+    }
     async init() {
         this.connectScript();
         this.readinessListener();

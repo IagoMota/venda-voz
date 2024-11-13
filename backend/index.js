@@ -35,25 +35,17 @@ const server = http.createServer((req, res) => {
             res.writeHead(200, { "Content-Type": "application/javascript" });
             res.end(fs.readFileSync('./frontend/main.js'));
             break;
-        case '/src/spotify/ApiAuth.js':
+        case '/src/spotify/ApiData.js':
             res.writeHead(200, { "Content-Type": "application/javascript" });
-            res.end(fs.readFileSync(path.resolve(__dirname, "../frontend/src/spotify") + '/ApiAuth.js'));
+            res.end(fs.readFileSync(path.resolve(__dirname, "../frontend/src/spotify") + '/ApiData.js'));
             break;
-        case '/src/spotify/GetData.js':
+        case '/src/spotify/Ui.js':
             res.writeHead(200, { "Content-Type": "application/javascript" });
-            res.end(fs.readFileSync(path.resolve(__dirname, "../frontend/src/spotify") + '/GetData.js'));
-            break;
-        case '/src/spotify/PlayerUi.js':
-            res.writeHead(200, { "Content-Type": "application/javascript" });
-            res.end(fs.readFileSync(path.resolve(__dirname, "../frontend/src/spotify") + '/PlayerUi.js'));
+            res.end(fs.readFileSync(path.resolve(__dirname, "../frontend/src/spotify") + '/Ui.js'));
             break;
         case '/src/spotify/SdkConnection.js':
             res.writeHead(200, { "Content-Type": "application/javascript" });
             res.end(fs.readFileSync(path.resolve(__dirname, "../frontend/src/spotify") + '/SDkConnection.js'));
-            break;
-        case '/src/spotify/SearchUi.js':
-            res.writeHead(200, { "Content-Type": "application/javascript" });
-            res.end(fs.readFileSync('./frontend/src/spotify/SearchUi.js'));
             break;
         case '/auth/callback':
             const { code } = query;
