@@ -1,0 +1,24 @@
+1 - o app vai rodar em um set interval que avalia o tempo a cada 1 segundo e checa se o minuto atual é o de algum evento agendado, e se for posterior a um momento agendado ele checa se a musica ja foi tocada ou se está tocando.
+Caso não esteja ele começa a tocar a musica atrasada
+exemplo:
+
+const time  = {
+    '11:00:00:':{
+        uri:123123,
+        tocado: false,
+        tocando: false,
+    },
+    '11:05:00:':{
+        uri:123123,
+        tocado: false,
+        tocando: false,
+    },
+}
+
+
+Como agendar:
+
+O cara escolhe um horário, digita o nome de uma musica e escolhe a musica que vai ser tocada naquele horário.
+daí ele clica em schedule e entao o app cria uma chave representando o horário em um objeto, com o uri da musica, o horário, se foi tocada ou se está tocando.
+
+O mesmo para o TTS, o cara escolhe um horário e deixa uma mensagem, se ele quiser ele clica em "tocar" para tocar agora ou ele clica em agendar para agendar um horário para depois onde o TTS será lido naquela hora e pronto
